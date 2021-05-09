@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_data">无数据</string>
+    <string name="title">标题</string>
+    <string name="Description">计划详情</string>
+    <string name="Search">搜索</string>
+    <string name="SortBy">排序</string>
+    <string name="priorityHigh">重要性降序</string>
+    <string name="priorityLow">重要性降序</string>
+    <string name="delete_all">删除全部</string>
+    <string name="Filter">筛选</string>
+    <string name="filter_work">工作</string>
+    <string name="filter_social">社交</string>
+    <string name="filter_study">学习</string>
+    <string name="filter_others">日常</string>
+    <string name="filter_entertain">娱乐</string>
+    <string name="add">添加</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string-array name="taskType">
+        <item>工作</item>
+        <item>学习</item>
+        <item>社交</item>
+        <item>娱乐</item>
+        <item>日常</item>
+    </string-array>
+    <string-array name="priority">
+        <item>重要</item>
+        <item>一般</item>
+        <item>不重要</item>
+    </string-array>
+</resources>
