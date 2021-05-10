@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.project.todolist.data.models.TaskData
 
 @Dao
 interface TaskDao {
@@ -13,8 +14,6 @@ interface TaskDao {
 	fun getAllData(): LiveData<List<TaskData>>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
-	fun insertData(taskData: TaskData)
-
-
+	suspend fun insertData(taskData: TaskData)
 
 }
