@@ -13,8 +13,8 @@
         <action
             android:id="@+id/action_noteListFragment_to_addNoteFragment"
             app:destination="@id/addNoteFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
+
+
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
         <action
@@ -50,5 +50,8 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.project.todolist.data.models.TaskData" />
     </fragment>
 </navigation>

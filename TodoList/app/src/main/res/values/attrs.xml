@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomSpinner">
+        <attr name="icon" format="reference" />
+        <attr name="entries" format="reference" />
+        <attr name="label" format="string" />
+        <attr name="textColor" format="color"/>
+        <attr name="cursorOutlineColor" format="color"/>
+    </declare-styleable>
+</resources>

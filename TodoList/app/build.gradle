@@ -32,6 +32,9 @@ android {
         dataBinding = true
 
     }
+    dataBinding {
+        enabled = true
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -78,6 +81,8 @@ dependencies {
     // DataBinding
     kapt "com.android.databinding:compiler:3.2.0-alpha10"
     kapt "androidx.databinding:databinding-common:4.1.2"
+
+
 
     // RecyclerView Animator
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'

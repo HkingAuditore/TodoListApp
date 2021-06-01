@@ -12,61 +12,124 @@
     tools:context=".fragments.addNote.AddNoteFragment">
 
 
-    <EditText
-        android:id="@+id/title_edittext"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="0dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:hint="@string/title"
-        android:inputType="textPersonName"
-        android:paddingStart="24dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        tools:layout_editor_absoluteX="32dp"
 
-    <Spinner
+
+        android:paddingRight="20dp"
+        android:paddingLeft="15dp"
+        android:id="@+id/userInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="标题"
+
+
+        android:textColorHint="@color/white"
+
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/colorPrimary"
+        app:startIconTint="@color/white"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/white"
+        app:startIconDrawable="@drawable/ic_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        app:endIconTint="@color/white"
+        app:endIconDrawable="@drawable/ic_close"
+        >
+
+        <EditText
+            android:id="@+id/title_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+
+            android:textColorHint="#FFFFFF"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+    <com.project.todolist.view.CustomSpinner
         android:id="@+id/task_type_spinner"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
         android:entries="@array/taskType"
+        app:icon="@drawable/ic_task_type"
+        app:label="类别"
+        app:cursorOutlineColor="@color/spinner_color_states"
+        app:entries="@array/taskType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/userInputLayout" />
 
-    <Spinner
+    <com.project.todolist.view.CustomSpinner
         android:id="@+id/priority_spinner"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
-        android:entries="@array/priority"
+
+        app:label="重要性"
+        app:icon="@drawable/ic_priority"
+        app:cursorOutlineColor="@color/spinner_color_states"
+        app:entries="@array/priority"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_type_spinner" />
 
-    <EditText
-        android:id="@+id/description_edittext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:paddingStart="24dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="16dp"
-        android:inputType="textMultiLine"
-        android:background="@android:color/transparent"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField"
+        style="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/Description"
+        android:padding="15dp"
+        app:boxBackgroundColor="#FFFFFF"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priority_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/priority_spinner"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!--    <EditText-->
+<!--        android:id="@+id/description_edittext"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="start|top"-->
+<!--        android:paddingStart="24dp"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:paddingTop="16dp"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:hint="@string/Description"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/priority_spinner" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

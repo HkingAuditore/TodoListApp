@@ -19,6 +19,14 @@
     <string name="add">添加</string>
     <string name="save">保存</string>
     <string name="delete">删除</string>
+    <string name="ask_for_confirm_delete">删除当前任务？</string>
+    <string name="cancel_delete">取消</string>
+    <string name="successfully_delete">成功删除:</string>
+    <string name="confirm_delete">确认</string>
+    <string name="confirm_delete_sentence">确定要删除待办：</string>
+    <string name="successfully_delete_all">成功删除所有待办！</string>
+    <string name="ask_delete_all">删除所有待办？</string>
+    <string name="sure_delete_all_msg">确定要删除所有的待办任务吗</string>
     <string-array name="taskType">
         <item>工作</item>
         <item>学习</item>

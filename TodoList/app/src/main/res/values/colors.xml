@@ -13,8 +13,13 @@
     <color name="black">#2B2B2B</color>
     <color name="white">#FFFFFF</color>
     <color name="lightGray">#E6E6E6</color>
+    <color name="midGray">#878787</color>
     <color name="darkGray">#4B4B4B</color>
     <color name="red">#FF4646</color>
     <color name="yellow">#FFC114</color>
     <color name="green">#00C980</color>
+    <color name="LightRed" >#E57373</color>
+
+
+
 </resources>
