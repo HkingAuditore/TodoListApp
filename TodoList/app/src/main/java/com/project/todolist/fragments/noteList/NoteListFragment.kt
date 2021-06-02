@@ -12,13 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.recyclerview.widget.RecyclerView
 import com.project.todolist.R
 import com.project.todolist.animation.startAnimation
 import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentNoteListBinding
 import com.project.todolist.fragments.SharedViewModel
+import com.project.todolist.fragments.noteList.adapter.ListAdapter
 
 class NoteListFragment : Fragment() {
 	private var _binding: FragmentNoteListBinding? = null
@@ -27,7 +29,7 @@ class NoteListFragment : Fragment() {
 		set(value) {
 			_binding = value
 		}
-	private val adapter : ListAdapter by lazy{ListAdapter()}
+	private val adapter : ListAdapter by lazy{ ListAdapter() }
 	private val mTaskViewModel : TaskViewModel by viewModels()
 	private val mSharedViewModel: SharedViewModel by viewModels()
 
@@ -70,6 +72,20 @@ class NoteListFragment : Fragment() {
 		recyclerView.adapter = adapter
 		recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+		swipeToDelete(recyclerView)
+	}
+
+	private fun swipeToDelete(recyclerView: RecyclerView){
+		ItemTouchHelper(object : SwipeToDelete(){
+			override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+				val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
+				mTaskViewModel.deleteData(itemToDelete)
+				Toast.makeText(requireContext(), """${
+					getString(
+							R.string.successfully_delete)
+				}${itemToDelete.title}""", Toast.LENGTH_SHORT).show()
+			}
+		}).attachToRecyclerView(recyclerView)
 	}
 
 	fun animateNavigate(){
