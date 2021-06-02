@@ -27,6 +27,7 @@
     <string name="successfully_delete_all">成功删除所有待办！</string>
     <string name="ask_delete_all">删除所有待办？</string>
     <string name="sure_delete_all_msg">确定要删除所有的待办任务吗</string>
+    <string name="item_restoure">撤销</string>
     <string-array name="taskType">
         <item>工作</item>
         <item>学习</item>

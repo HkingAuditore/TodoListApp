@@ -15,12 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.project.todolist.R
 import com.project.todolist.animation.startAnimation
+import com.project.todolist.data.models.TaskData
 import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentNoteListBinding
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.noteList.adapter.ListAdapter
+import java.text.FieldPosition
 
 class NoteListFragment : Fragment() {
 	private var _binding: FragmentNoteListBinding? = null
@@ -80,12 +83,27 @@ class NoteListFragment : Fragment() {
 			override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 				val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
 				mTaskViewModel.deleteData(itemToDelete)
-				Toast.makeText(requireContext(), """${
-					getString(
-							R.string.successfully_delete)
-				}${itemToDelete.title}""", Toast.LENGTH_SHORT).show()
+				adapter.notifyItemChanged(viewHolder.adapterPosition)
+//				Toast.makeText(requireContext(), """${
+//					getString(
+//							R.string.successfully_delete)
+//				}${itemToDelete.title}""", Toast.LENGTH_SHORT).show()
+
+				//撤销
+				restoreDeletedData(viewHolder.itemView, itemToDelete,viewHolder.adapterPosition)
 			}
 		}).attachToRecyclerView(recyclerView)
+	}
+
+	private fun restoreDeletedData(view: View, deleteItem: TaskData, position: Int){
+		Snackbar.make(view, "删除${deleteItem.title}",Snackbar.LENGTH_LONG)
+			.setAction(getString(R.string.item_restoure))
+			{
+				mTaskViewModel.insertData(deleteItem)
+				adapter.notifyItemChanged(position)
+			}
+			.show()
+
 	}
 
 	fun animateNavigate(){
