@@ -21,7 +21,7 @@ import com.project.todolist.view.ISpinnerSelectedDelegate
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
-	val emptyDatabase : MutableLiveData<Boolean> = MutableLiveData(true)
+	val emptyDatabase : MutableLiveData<Boolean> = MutableLiveData(false)
 
 	fun checkIfDatabaseEmpty(taskData: List<TaskData>){
 		emptyDatabase.value = taskData.isEmpty()
@@ -104,6 +104,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 				TaskType.OTHERS -> 4
 			}
 		}
+
 
 		@JvmStatic
 		fun verifyDataFromUser(title: String, description: String): Boolean{

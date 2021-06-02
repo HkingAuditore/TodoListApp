@@ -22,4 +22,15 @@ interface TaskDao {
 	@Query("DELETE FROM task_table")
 	suspend fun deleteAll()
 
+	@Query("SELECT * FROM task_table WHERE title LIKE :searchQuery OR description LIKE :searchQuery")
+	fun searchDatabase(searchQuery: String): LiveData<List<TaskData>>
+
+	@Query("SELECT * FROM task_table ORDER BY CASE WHEN priority LIKE 'H%' THEN 0 WHEN priority LIKE 'M%' THEN 1 WHEN priority LIKE 'L%' THEN 2 END")
+	fun sortByHighPriority(): LiveData<List<TaskData>>
+
+	@Query("SELECT * FROM task_table WHERE taskType = :taskType")
+	fun filterTaskType(taskType: String): LiveData<List<TaskData>>
+
+//	@Query("SELECT * FROM task_table ORDER BY CASE WHEN priority LIKE 'H%' THEN 0 WHEN priority LIKE 'M%' THEN 1 WHEN priority LIKE 'L%' THEN 2 END DESC")
+//	fun sortByLowPriority(): LiveData<List<TaskData>>
 }

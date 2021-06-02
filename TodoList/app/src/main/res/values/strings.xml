@@ -8,7 +8,7 @@
     <string name="Search">搜索</string>
     <string name="SortBy">排序</string>
     <string name="priorityHigh">重要性降序</string>
-    <string name="priorityLow">重要性降序</string>
+    <string name="priorityLow">重要性升序</string>
     <string name="delete_all">删除全部</string>
     <string name="Filter">筛选</string>
     <string name="filter_work">工作</string>

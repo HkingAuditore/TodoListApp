@@ -1,6 +1,7 @@
 package com.project.todolist.data.viewModel
 
 import android.app.Application
+import android.app.DownloadManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -13,11 +14,16 @@ import kotlinx.coroutines.launch
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
 	private val taskDao = TaskDatabase.getDatabase(application).taskDao()
 	private val repository: TaskRepository
+
 	val getAllData: LiveData<List<TaskData>>
+	val sortByHighPriority: LiveData<List<TaskData>>
+
 
 	init {
 		repository = TaskRepository(taskDao)
 		getAllData = repository.getAllData
+		sortByHighPriority = repository.getSortByHighPriority
+
 	}
 
 	fun insertData(taskData: TaskData) {
@@ -43,5 +49,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 			repository.deleteAll()
 		}
 	}
+
+	fun searchDatabase(searchQuery: String): LiveData<List<TaskData>>{
+		return repository.searchDatabase(searchQuery)
+	}
+
+	fun filterTaskTypeDatabase(taskType :String): LiveData<List<TaskData>>{
+		return repository.filterTaskTypeDatabase(taskType)
+	}
+
 
 }

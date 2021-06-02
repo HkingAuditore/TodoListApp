@@ -34,7 +34,7 @@ class UpdateFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 							 ): View? {
 		binding = FragmentUpdateBinding.inflate(inflater, container, false)
-		binding.args = args
+		binding.args = args.currentItem
 
 		setHasOptionsMenu(true)
 		// Inflate the layout for this fragment
