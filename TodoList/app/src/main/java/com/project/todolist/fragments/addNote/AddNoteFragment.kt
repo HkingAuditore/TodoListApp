@@ -1,26 +1,15 @@
 package com.project.todolist.fragments.addNote
 
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.view.LayoutInflater
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.project.todolist.R
-import com.project.todolist.data.models.Priority
 import com.project.todolist.data.models.TaskData
-import com.project.todolist.data.models.TaskType
 import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentAddNoteBinding
 import com.project.todolist.fragments.SharedViewModel
@@ -93,3 +82,5 @@ class AddNoteFragment : Fragment() {
 
 
 }
+
+

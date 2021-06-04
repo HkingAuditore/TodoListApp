@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TimerActivity">
+
+
+        <com.owl93.dpb.CircularProgressView
+            android:id="@+id/progressView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_margin="20dp"
+            app:direction="cw"
+            app:gradientCenterColor="@color/blue"
+            app:gradientEndColor="@color/teal"
+            app:gradientStartColor="@color/purple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress="0"
+            app:startingAngle="0"
+            app:strokeColor="@color/teal"
+            app:strokeGradientSize="stroke_only"
+            app:strokeGradientStyle="linear"
+            app:strokeGradient_linearAngle="0"
+            app:strokeEndStyle="square"
+            app:strokeWidth="20dp"
+            app:textColor="@color/colorPrimary"
+            app:textEnabled="true"
+            app:textFormat="progress"
+            app:textGradientCenterColor="@color/blue"
+            app:textGradientEndColor="@color/teal"
+            app:textGradientSize="text_only"
+            app:textGradientStartColor="@color/purple"
+            app:textGradientStyle="linear"
+            app:textGradient_linearAngle="45"
+            app:textSize="40sp"
+            app:trackColor="@color/colorPrimaryDark">
+
+        </com.owl93.dpb.CircularProgressView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        app:fabCradleRoundedCornerRadius="20dp"
+        android:layout_height="wrap_content"
+        app:elevation="20dp"
+        app:fabCradleMargin="10dp"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomBarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            app:menu="@menu/nav_drawer_menu"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <View
+        android:id="@+id/circle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/circle"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/floating_action_button"
+        app:layout_anchorGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_action_button"
+        app:layout_constraintEnd_toEndOf="@+id/floating_action_button" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_add_timer"
+        app:backgroundTint="#2196F3"
+
+        app:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:pressedTranslationZ="-3dp"
+        app:tint="@color/white"
+        app:layout_anchor="@id/bottomBar"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

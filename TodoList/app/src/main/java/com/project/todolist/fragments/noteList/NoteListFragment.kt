@@ -1,6 +1,7 @@
 package com.project.todolist.fragments.noteList
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -16,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import com.google.android.material.snackbar.Snackbar
 import com.project.todolist.R
+import com.project.todolist.TimerActivity
+import com.project.todolist.Utils.observeOnce
 import com.project.todolist.animation.startAnimation
 import com.project.todolist.data.models.TaskData
 import com.project.todolist.data.models.TaskType
@@ -23,8 +26,12 @@ import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentNoteListBinding
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.noteList.adapter.ListAdapter
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.BezierRadarHeader
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
-import java.text.FieldPosition
 
 class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 	private var _binding: FragmentNoteListBinding? = null
@@ -54,7 +61,9 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 		mTaskViewModel.getAllData.observe(viewLifecycleOwner, Observer {data ->
 			mSharedViewModel.checkIfDatabaseEmpty(data)
 			adapter.setData(data)
+
 		})
+
 
 		//使用dataBinding取代
 //		mSharedViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
@@ -67,7 +76,37 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 //			animateNavigate()
 //		}
 
+		binding.bottomBarView.background = null
+		binding.bottomBarView.menu.getItem(1).isEnabled = false
+		binding.bottomBarView.setOnNavigationItemSelectedListener {
+			when(it.itemId){
+				R.id.item_clock ->{
+					val intent = Intent(activity, TimerActivity::class.java)
+					startActivity(intent)
+				}
+				R.id.item_task ->{
+
+				}
+			}
+			true
+		}
+
+//		binding.swipeRefreshLayout.setRefreshHeader(BezierRadarHeader(this.requireContext()).setEnableHorizontalDrag(true))
+
+
+
+		binding.swipeRefreshLayout.setOnRefreshListener {
+
+			mTaskViewModel.getAllData.observe(viewLifecycleOwner, Observer {
+				adapter.setData(it)
+				binding.swipeRefreshLayout.finishRefresh(2000);
+
+			})
+
+
+		}
 		setHasOptionsMenu(true)
+
 		return view
 	}
 
@@ -75,7 +114,7 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 		val recyclerView = binding.recycleView
 		recyclerView.adapter = adapter
 //		recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-		recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+		recyclerView.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
 		recyclerView.itemAnimator = SlideInUpAnimator().apply {
 			addDuration = 300
 		}
@@ -153,30 +192,30 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 			}
 
 			R.id.menu_filter_entertain -> {
-				mTaskViewModel.filterTaskTypeDatabase(TaskType.ENTERTAIN.name).observe(this, Observer {
-					adapter.setData(it.reversed())
+				mTaskViewModel.filterTaskTypeDatabase(TaskType.ENTERTAIN.name).observeOnce(viewLifecycleOwner, Observer {
+					adapter.setData(it)
 				})
 			}
 
 			R.id.menu_filter_others -> {
-				mTaskViewModel.filterTaskTypeDatabase(TaskType.OTHERS.name).observe(this, Observer {
-					adapter.setData(it.reversed())
+				mTaskViewModel.filterTaskTypeDatabase(TaskType.OTHERS.name).observeOnce(viewLifecycleOwner, Observer {
+					adapter.setData(it)
 				})
 			}
 
 			R.id.menu_filter_social -> {
-				mTaskViewModel.filterTaskTypeDatabase(TaskType.SOCIAL.name).observe(this, Observer {
-					adapter.setData(it.reversed())
+				mTaskViewModel.filterTaskTypeDatabase(TaskType.SOCIAL.name).observeOnce(viewLifecycleOwner, Observer {
+					adapter.setData(it)
 				})
 			}
 			R.id.menu_filter_study-> {
-				mTaskViewModel.filterTaskTypeDatabase(TaskType.STUDY.name).observe(this, Observer {
-					adapter.setData(it.reversed())
+				mTaskViewModel.filterTaskTypeDatabase(TaskType.STUDY.name).observeOnce(viewLifecycleOwner, Observer {
+					adapter.setData(it)
 				})
 			}
 			R.id.menu_filter_work -> {
-				mTaskViewModel.filterTaskTypeDatabase(TaskType.WORK.name).observe(this, Observer {
-					adapter.setData(it.reversed())
+				mTaskViewModel.filterTaskTypeDatabase(TaskType.WORK.name).observeOnce(viewLifecycleOwner ,Observer {
+					adapter.setData(it)
 				})
 			}
 
@@ -202,7 +241,7 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 	}
 
 	private fun searchThroughDatabase(query: String) {
-		mTaskViewModel.searchDatabase("%$query%").observe(this, Observer {
+		mTaskViewModel.searchDatabase("%$query%").observeOnce(viewLifecycleOwner, Observer {
 			list ->
 				list?.let{
 					adapter.setData(it)
