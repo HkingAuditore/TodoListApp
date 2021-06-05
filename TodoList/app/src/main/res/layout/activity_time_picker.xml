@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".TimePickerActivity">
 
 
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="选择时间"
         android:textSize="40dp"
+        android:textColor="@color/white"
 
         app:layout_constraintBottom_toTopOf="@+id/seek_hour"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,9 +54,9 @@
         app:wheel_max_process="59"
         app:wheel_pointer_color="@color/lightGray"
         app:wheel_pointer_radius="8dp"
-        app:wheel_reached_color="@color/colorAccent"
+        app:wheel_reached_color="#2E7D32"
         app:wheel_reached_width="32dp"
-        app:wheel_unreached_color="@color/colorPrimary" />
+        app:wheel_unreached_color="@color/green" />
 
 
     <TextView
@@ -62,11 +64,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0小时 0 分钟"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/seek_hour"
         app:layout_constraintEnd_toEndOf="@+id/seek_hour"
         app:layout_constraintStart_toStartOf="@+id/seek_hour"
         app:layout_constraintTop_toTopOf="@+id/seek_hour" />
 
+    <com.royrodriguez.transitionbutton.TransitionButton
+        android:id="@+id/confirmTimeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="72dp"
+        android:text="开启番茄钟"
+        android:textSize="18sp"
+        android:textColor="@color/green"
+        app:defaultColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seek_hour"
+        app:loaderColor="@color/green" />
 </androidx.constraintlayout.widget.ConstraintLayout>

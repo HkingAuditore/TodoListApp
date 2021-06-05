@@ -1,11 +1,14 @@
 package com.project.todolist.fragments.updateNote
 
 import android.app.AlertDialog
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +21,8 @@ import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentNoteListBinding
 import com.project.todolist.databinding.FragmentUpdateBinding
 import com.project.todolist.fragments.SharedViewModel
+import com.project.todolist.view.CustomSpinner
+import com.project.todolist.view.ISpinnerSelectedDelegate
 
 class UpdateFragment : Fragment() {
 
@@ -30,52 +35,69 @@ class UpdateFragment : Fragment() {
 	private val args by navArgs<UpdateFragmentArgs>()
 	private val mTaskViewModel: TaskViewModel by viewModels()
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-							 ): View? {
+	override fun onCreateView(inflater: LayoutInflater,
+	                          container: ViewGroup?,
+	                          savedInstanceState: Bundle?
+	): View? {
 		binding = FragmentUpdateBinding.inflate(inflater, container, false)
 		binding.args = args.currentItem
 
-		setHasOptionsMenu(true)
-		// Inflate the layout for this fragment
-//		binding.currentTitleEdittext.setText(args.currentItem.title)
-//		binding.currentDescriptionEdittext.setText(args.currentItem.description)
-//		binding.currentPrioritySpinner.setSelection(SharedViewModel.parsePriority(args.currentItem.priority))
-		binding.currentPrioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-			override fun onItemSelected(parent: AdapterView<*>?,
-			                            view: View?,
-			                            position: Int,
-			                            id: Long
-			) {
-				when(position){
-					0 -> {
-						(parent?.getChildAt(0) as TextView).setTextColor(
-								ContextCompat.getColor(requireContext(),R.color.LightRed))
+		binding.currentTaskTypeSpinner.textView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//		binding.currentPrioritySpinner?.let {
+//			Log.d("UPDATE-FRAGMENT","T:" + it.selectedItem)
+//			it.textView?.setTextColor(
+//					when (it.selectedItem) {
+//						resources.getStringArray(R.array.priority)[0] -> {
+//							ContextCompat.getColor(requireContext(), R.color.LightRed)
+//						}
+//						resources.getStringArray(R.array.priority)[1] -> {
+//							ContextCompat.getColor(requireContext(), R.color.yellow)
+//						}
+//						resources.getStringArray(R.array.priority)[2] -> {
+//							ContextCompat.getColor(requireContext(), R.color.green)
+//						}
+//						else -> ContextCompat.getColor(requireContext(), R.color.green)
+//					})
+//		}
 
-					}
-					1->{
-						(parent?.getChildAt(0) as TextView).setTextColor(
-								ContextCompat.getColor(requireContext(),R.color.yellow))
-					}
-					2 -> {
-						(parent?.getChildAt(0) as TextView).setTextColor(
-								ContextCompat.getColor(requireContext(),R.color.green))
+		setHasOptionsMenu(true)
+
+		binding.currentPrioritySpinner.let {
+			it.onClick = object : ISpinnerSelectedDelegate {
+				override fun onItemClick(parent: AdapterView<*>,
+				                         view: View,
+				                         position: Int,
+				                         id: Long,
+				                         customSpinner: CustomSpinner
+				) {
+					Log.d("setOnClickListener", "listener:")
+					when (position) {
+						0 -> {
+							it.textView?.setTextColor(
+									ContextCompat.getColor(requireContext(), R.color.LightRed))
+						}
+						1 -> {
+							it.textView?.setTextColor(
+									ContextCompat.getColor(requireContext(), R.color.yellow))
+
+						}
+						2 -> {
+							it.textView?.setTextColor(
+									ContextCompat.getColor(requireContext(), R.color.green))
+
+						}
 					}
 				}
 			}
-
-			override fun onNothingSelected(parent: AdapterView<*>?) {
-				TODO("Not yet implemented")
-			}
-
 		}
 
-		return binding.root
 
+		return binding.root
 	}
 
+
 	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.update_fragment_menu,menu)
+		inflater.inflate(R.menu.update_fragment_menu, menu)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -92,15 +114,18 @@ class UpdateFragment : Fragment() {
 
 	private fun confirmItemRemoval() {
 		AlertDialog.Builder(requireContext()).let {
-			it.setPositiveButton(getString(R.string.confirm_delete)){ _, _ ->
+			it.setPositiveButton(getString(R.string.confirm_delete)) { _, _ ->
 				mTaskViewModel.deleteData(args.currentItem)
-				Toast.makeText(requireContext(), getString(
-										R.string.successfully_delete) + args.currentItem.title, Toast.LENGTH_SHORT).show()
+				Toast.makeText(
+						requireContext(), getString(
+						R.string.successfully_delete) + args.currentItem.title, Toast.LENGTH_SHORT)
+					.show()
 				findNavController().navigate(R.id.action_updateFragment_to_noteListFragment)
 			}
-			it.setNegativeButton(getString(R.string.cancel_delete)){ _, _ -> }
+			it.setNegativeButton(getString(R.string.cancel_delete)) { _, _ -> }
 			it.setTitle(getString(R.string.ask_for_confirm_delete))
-			it.setMessage("${getString(R.string.confirm_delete_sentence)}${args.currentItem.title}？")
+			it.setMessage(
+					"${getString(R.string.confirm_delete_sentence)}${args.currentItem.title}？")
 			it.create().show()
 		}
 	}
@@ -111,19 +136,15 @@ class UpdateFragment : Fragment() {
 		val priority = binding.currentPrioritySpinner.selectedItem.toString()
 		val taskType = binding.currentTaskTypeSpinner.selectedItem.toString()
 
-		if(SharedViewModel.verifyDataFromUser(title,description)){
+		if (SharedViewModel.verifyDataFromUser(title, description)) {
 			val updatedItem = TaskData(
-					args.currentItem.id,
-					title,
-					SharedViewModel.parsePriority(priority,resources),
-					SharedViewModel.parseTaskType(taskType,resources),
-					description
-			)
+					args.currentItem.id, title, SharedViewModel.parsePriority(priority, resources),
+					SharedViewModel.parseTaskType(taskType, resources), description)
 			mTaskViewModel.updateData(updatedItem)
-			Toast.makeText(requireContext(),"修改成功！",Toast.LENGTH_SHORT).show()
+			Toast.makeText(requireContext(), "修改成功！", Toast.LENGTH_SHORT).show()
 			findNavController().navigate(R.id.action_updateFragment_to_noteListFragment)
-		}else{
-			Toast.makeText(requireContext(),"修改失败！请检查输入",Toast.LENGTH_SHORT).show()
+		} else {
+			Toast.makeText(requireContext(), "修改失败！请检查输入", Toast.LENGTH_SHORT).show()
 
 		}
 

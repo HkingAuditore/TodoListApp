@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,42 +13,60 @@
         android:layout_height="match_parent"
         tools:context=".TimerActivity">
 
-
         <com.owl93.dpb.CircularProgressView
             android:id="@+id/progressView"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_margin="20dp"
             app:direction="cw"
-            app:gradientCenterColor="@color/blue"
-            app:gradientEndColor="@color/teal"
-            app:gradientStartColor="@color/purple"
+            app:gradientCenterColor="@color/colorPrimary"
+            app:gradientEndColor="#218DE3"
+            app:gradientStartColor="#218DE3"
+            app:layout_anchor="@+id/constraintLayout"
+            app:layout_anchorGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.33"
             app:progress="0"
             app:startingAngle="0"
             app:strokeColor="@color/teal"
-            app:strokeGradientSize="stroke_only"
-            app:strokeGradientStyle="linear"
-            app:strokeGradient_linearAngle="0"
             app:strokeEndStyle="square"
+            app:strokeGradientSize="stroke_only"
+            app:strokeGradientStyle="radial"
+            app:strokeGradient_linearAngle="0"
             app:strokeWidth="20dp"
+            app:text="00 : 00 : 00"
             app:textColor="@color/colorPrimary"
             app:textEnabled="true"
             app:textFormat="progress"
             app:textGradientCenterColor="@color/blue"
-            app:textGradientEndColor="@color/teal"
+            app:textGradientEndColor="@color/blue"
             app:textGradientSize="text_only"
-            app:textGradientStartColor="@color/purple"
+            app:textGradientStartColor="@color/blue"
             app:textGradientStyle="linear"
             app:textGradient_linearAngle="45"
             app:textSize="40sp"
-            app:trackColor="@color/colorPrimaryDark">
+            app:trackColor="@color/colorPrimaryDark"
+            app:trackWidth="20dp">
 
         </com.owl93.dpb.CircularProgressView>
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_cancel_view"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressView"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/cancel" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -70,10 +90,12 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
+
     <View
-        android:id="@+id/circle"
+        android:id="@+id/animationCircle"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:elevation="20dp"
         android:background="@drawable/circle"
         android:visibility="invisible"
         app:layout_anchor="@+id/floating_action_button"
@@ -99,6 +121,7 @@
         app:pressedTranslationZ="-3dp"
         app:tint="@color/white"
         app:layout_anchor="@id/bottomBar"/>
+
 
 
 

@@ -1,12 +1,14 @@
 package com.project.todolist
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
+import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.project.todolist.databinding.ActivityTimePickerBinding
-import com.project.todolist.databinding.ActivityTimerBinding
+import com.royrodriguez.transitionbutton.TransitionButton
+import com.royrodriguez.transitionbutton.TransitionButton.OnAnimationStopEndListener
+
 
 class TimePickerActivity : AppCompatActivity() {
 	lateinit var binding: ActivityTimePickerBinding
@@ -37,6 +39,35 @@ class TimePickerActivity : AppCompatActivity() {
 		}
 
 		binding.seekMinute.curProcess = 30
+
+//		binding.confirmTimeButton.setOnClickListener {
+//			binding.confirmTimeButton.run {
+//				this.startAnimation()
+//				this.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND,TransitionButton.OnAnimationStopEndListener {
+//					val intent = Intent(context, TimerActivity::class.java)
+//					intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//					startActivity(intent)
+//				})
+//			}
+//
+//		}
+
+		binding.confirmTimeButton.setOnClickListener {
+
+			binding.confirmTimeButton.startAnimation()
+			Handler().postDelayed(Runnable {
+				binding.confirmTimeButton.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND,
+				                                        OnAnimationStopEndListener {
+					                                        val data = Intent()
+					                                        data.putExtra("time", hour*3600L+minute*60L);
+
+					                                        setResult(Activity.RESULT_OK, data);
+					                                        finish()
+					                                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+				                                        })
+			}, 1000)
+
+		}
 
 		setContentView(view)
 	}

@@ -33,11 +33,12 @@
         app:boxStrokeColor="@color/text_input_layout_stroke_color"
         app:hintTextColor="@color/white"
         app:startIconDrawable="@drawable/ic_header"
+        app:endIconTint="@color/white"
+        app:endIconDrawable="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022"
-        app:endIconTint="@color/white"
-        app:endIconDrawable="@drawable/ic_close"
+
         >
 
         <EditText
@@ -66,6 +67,8 @@
         android:entries="@array/taskType"
         app:icon="@drawable/ic_task_type"
         app:label="类别"
+        app:textColor="@color/white"
+
         app:cursorOutlineColor="@color/spinner_color_states"
         app:entries="@array/taskType"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +87,7 @@
         app:icon="@drawable/ic_priority"
         app:cursorOutlineColor="@color/spinner_color_states"
         app:entries="@array/priority"
+        app:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_type_spinner" />
@@ -91,12 +95,22 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
-        style="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:hint="@string/Description"
         android:padding="15dp"
-        app:boxBackgroundColor="#FFFFFF"
+
+        android:textColorHint="@color/white"
+
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/colorPrimary"
+        app:startIconTint="@color/white"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/white"
+
+        app:endIconTint="@color/white"
+        app:endIconDrawable="@drawable/ic_close"
 
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +120,11 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
-
+            android:inputType="textMultiLine"
+            android:lines="30"
+            android:maxLines="30"
+            android:textColor="@color/white"
+            android:gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

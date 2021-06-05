@@ -1,5 +1,6 @@
 package com.project.todolist.fragments
 
+import android.util.Log
 import android.view.View
 import android.view.ViewPropertyAnimator
 import android.view.animation.AccelerateInterpolator
@@ -20,6 +21,7 @@ import com.project.todolist.data.models.TaskData
 import com.project.todolist.data.models.TaskType
 import com.project.todolist.fragments.noteList.NoteListFragment
 import com.project.todolist.fragments.noteList.NoteListFragmentDirections
+import com.project.todolist.view.CustomSpinner
 
 class BindingAdapters {
 
@@ -47,14 +49,60 @@ class BindingAdapters {
 
 		@BindingAdapter("android:parsePriority")
 		@JvmStatic
-		fun parsePriority(view: Spinner, priority: Priority){
-			view.setSelection(SharedViewModel.parsePriority(priority))
+		fun parsePriority(view: CustomSpinner, priority: Priority){
+//			view.setSelection(SharedViewModel.parsePriority(priority))
+			Log.d("SPINNER", view.textView?.adapter?.count.toString())
+			when(priority){
+				Priority.HIGH -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(0).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(0).toString()
+					view.textView?.setTextColor(ContextCompat.getColor(view.context, R.color.LightRed))
+				}
+				Priority.MEDIUM -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(1).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(1).toString()
+					view.textView?.setTextColor(ContextCompat.getColor(view.context, R.color.yellow))
+				}
+				Priority.LOW -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(2).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(2).toString()
+					view.textView?.setTextColor(ContextCompat.getColor(view.context, R.color.green))
+				}
+			}
+
 		}
 
 		@BindingAdapter("android:parseTaskType")
 		@JvmStatic
-		fun parseTaskType(view: Spinner, taskType: TaskType){
-			view.setSelection(SharedViewModel.parseTaskType(taskType))
+		fun parseTaskType(view: CustomSpinner, taskType: TaskType){
+//			view.setSelection(SharedViewModel.parseTaskType(taskType))
+			Log.d("SPINNER", view.textView?.adapter?.count.toString())
+			when(taskType){
+				TaskType.WORK -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(0).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(0).toString()
+				}
+				TaskType.SOCIAL -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(2).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(2).toString()
+
+				}
+				TaskType.STUDY -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(1).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(1).toString()
+
+				}
+				TaskType.ENTERTAIN -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(3).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(3).toString()
+
+				}
+				TaskType.OTHERS -> {
+					view.textView?.setText(view.textView?.adapter?.getItem(4).toString(), false)
+					view.selectedItem = view.textView?.adapter?.getItem(4).toString()
+
+				}
+			}
 		}
 
 		@BindingAdapter("android:parsePriorityColor")

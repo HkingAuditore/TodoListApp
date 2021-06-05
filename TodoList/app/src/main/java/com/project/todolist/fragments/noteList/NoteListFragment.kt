@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.*
 import com.google.android.material.snackbar.Snackbar
 import com.project.todolist.R
 import com.project.todolist.TimerActivity
-import com.project.todolist.Utils.observeOnce
+import com.project.todolist.utils.observeOnce
 import com.project.todolist.animation.startAnimation
 import com.project.todolist.data.models.TaskData
 import com.project.todolist.data.models.TaskType
@@ -26,11 +26,6 @@ import com.project.todolist.data.viewModel.TaskViewModel
 import com.project.todolist.databinding.FragmentNoteListBinding
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.noteList.adapter.ListAdapter
-import com.scwang.smart.refresh.footer.ClassicsFooter
-import com.scwang.smart.refresh.header.BezierRadarHeader
-import com.scwang.smart.refresh.header.ClassicsHeader
-import com.scwang.smart.refresh.header.MaterialHeader
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
@@ -287,6 +282,10 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 	}
 
 
+	override fun onResume() {
+		super.onResume()
+		binding.bottomBarView.menu.getItem(0).isChecked = true
+	}
 
 
 

@@ -1,4 +1,4 @@
-package com.project.todolist.Utils
+package com.project.todolist.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

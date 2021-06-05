@@ -23,7 +23,7 @@ class CustomSpinner: ConstraintLayout{
 		private set(value) {
 			field = value
 		}
-	private var inputLayout : TextInputLayout? = null
+	var inputLayout : TextInputLayout? = null
 	private var stringArray : Array<String> = arrayOf("null")
 
 	var onClick : ISpinnerSelectedDelegate = object : ISpinnerSelectedDelegate {
@@ -35,9 +35,12 @@ class CustomSpinner: ConstraintLayout{
 
 	var selectedItem : String? = null
 		public get() = field
-		private set(value) {
+		set(value) {
 			Log.d("SQL", "value:$value")
-			field =value}
+			field =value
+		}
+
+
 
 	@DrawableRes
 	var icon: Int = 0
@@ -96,11 +99,9 @@ class CustomSpinner: ConstraintLayout{
 		textView?.setAdapter(arrayAdapter)
 
 
-		object : AdapterView.OnItemClickListener {
-			override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-				selectedItem = stringArray[id.toInt()]
-				onClick.onItemClick(parent,view,position,id,this@CustomSpinner)
-			}
+		AdapterView.OnItemClickListener { parent, view, position, id ->
+			selectedItem = stringArray[id.toInt()]
+			onClick.onItemClick(parent,view,position,id,this@CustomSpinner)
 		}.also { textView?.onItemClickListener = it }
 	}
 
@@ -124,6 +125,8 @@ class CustomSpinner: ConstraintLayout{
 
 		typedArray.recycle()
 	}
+
+
 
 
 

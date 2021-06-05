@@ -98,8 +98,8 @@
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -132,6 +132,7 @@
             app:layout_anchorGravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/floating_action_button"
             app:layout_constraintEnd_toEndOf="@+id/floating_action_button" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_action_button"
             android:layout_width="wrap_content"

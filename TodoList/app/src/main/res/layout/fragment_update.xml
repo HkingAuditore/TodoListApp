@@ -12,75 +12,126 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="50dp"
-        android:paddingBottom="24dp"
         android:paddingLeft="24dp"
+        android:paddingTop="50dp"
         android:paddingRight="24dp"
+        android:paddingBottom="24dp"
         tools:context=".fragments.updateNote.UpdateFragment">
 
-        <EditText
-            android:id="@+id/current_title_edittext"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/custom_input"
-            android:ems="10"
-            android:text="@{args.title}"
-            android:hint="@string/title"
-            android:inputType="textPersonName"
-            android:paddingStart="24dp"
-            android:paddingEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userTitleInputLayout"
 
-        <Spinner
-            android:id="@+id/current_task_type_spinner"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="20dp"
-            android:entries="@array/taskType"
-            android:parseTaskType="@{args.taskType}"
-            android:background="@drawable/custom_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_title_edittext" />
 
-        <Spinner
-            android:id="@+id/current_priority_spinner"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="20dp"
-            android:entries="@array/priority"
-            android:parsePriority="@{args.priority}"
-            android:background="@drawable/custom_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_task_type_spinner" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="标题"
+            android:paddingLeft="15dp"
+            android:paddingRight="20dp"
 
-        <EditText
-            android:id="@+id/current_description_edittext"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:paddingStart="24dp"
-            android:text="@{args.description}"
-            android:paddingEnd="16dp"
-            android:paddingTop="16dp"
-            android:inputType="textMultiLine"
-            android:background="@drawable/custom_input"
-            android:hint="@string/Description"
+
+            android:textColorHint="@color/colorPrimary"
+
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:endIconDrawable="@drawable/ic_close"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/colorPrimary"
+            app:boxStrokeWidth="0dp"
+            app:hintTextColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_priority_spinner" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:boxStrokeColor="@color/text_input_layout_stroke_color_blue"
+            app:layout_constraintVertical_bias="0.022"
+            app:startIconDrawable="@drawable/ic_header">
+
+            <EditText
+                android:id="@+id/current_title_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_input"
+                android:hint="@string/title"
+                android:text="@{args.title}" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.project.todolist.view.CustomSpinner
+            android:id="@+id/current_task_type_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:entries="@array/taskType"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:parseTaskType="@{args.taskType}"
+            app:entries="@array/taskType"
+            app:icon="@drawable/ic_task_type"
+            app:label="类别"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userTitleInputLayout"
+            app:textColor="@color/black" />
+
+        <com.project.todolist.view.CustomSpinner
+            android:id="@+id/current_priority_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:parsePriority="@{args.priority}"
+            app:label="重要性"
+
+            app:icon="@drawable/ic_priority"
+            app:entries="@array/priority"
+            app:textColor="@color/black"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_task_type_spinner" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="@string/Description"
+            android:padding="15dp"
+
+            android:textColorHint="@color/colorPrimary"
+
+            app:endIconMode="clear_text"
+            app:boxBackgroundColor="@color/white"
+            app:startIconTint="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary"
+
+            app:endIconTint="@color/colorPrimary"
+            app:endIconDrawable="@drawable/ic_close"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_priority_spinner"
+            app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/currentDescriptionEdittext"
+            android:inputType="textMultiLine"
+            android:lines="30"
+            android:maxLines="30"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{args.description}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
