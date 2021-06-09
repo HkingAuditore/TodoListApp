@@ -27,17 +27,22 @@ class BindingAdapters {
 
 	companion object{
 
+		/**
+		 *  导航至添加面板
+		 */
 		@BindingAdapter("android:navigateToAddFragment")
 		@JvmStatic
 		fun navigateToAddFragment(view: FloatingActionButton, navigate: Boolean){
 			view.setOnClickListener {
 				if(navigate){
 					view.findFragment<NoteListFragment>().animateNavigate()
-//					view.findNavController().navigate(R.id.action_noteListFragment_to_addNoteFragment)
 				}
 			}
 		}
 
+		/**
+		 * 判定空数据库
+		 */
 		@BindingAdapter("android:emptyDatabase")
 		@JvmStatic
 		fun emptyDatabase(view : View, emptyDatabase: MutableLiveData<Boolean>){
@@ -47,11 +52,12 @@ class BindingAdapters {
 			}
 		}
 
+		/**
+		 * 显示重要性
+		 */
 		@BindingAdapter("android:parsePriority")
 		@JvmStatic
 		fun parsePriority(view: CustomSpinner, priority: Priority){
-//			view.setSelection(SharedViewModel.parsePriority(priority))
-			Log.d("SPINNER", view.textView?.adapter?.count.toString())
 			when(priority){
 				Priority.HIGH -> {
 					view.textView?.setText(view.textView?.adapter?.getItem(0).toString(), false)
@@ -72,11 +78,12 @@ class BindingAdapters {
 
 		}
 
+		/**
+		 * 显示事务类别
+		 */
 		@BindingAdapter("android:parseTaskType")
 		@JvmStatic
 		fun parseTaskType(view: CustomSpinner, taskType: TaskType){
-//			view.setSelection(SharedViewModel.parseTaskType(taskType))
-			Log.d("SPINNER", view.textView?.adapter?.count.toString())
 			when(taskType){
 				TaskType.WORK -> {
 					view.textView?.setText(view.textView?.adapter?.getItem(0).toString(), false)
@@ -105,6 +112,9 @@ class BindingAdapters {
 			}
 		}
 
+		/**
+		 * 根据重要性显示颜色
+		 */
 		@BindingAdapter("android:parsePriorityColor")
 		@JvmStatic
 		fun parsePriorityColor(cardView: CardView, priority: Priority){
@@ -115,6 +125,9 @@ class BindingAdapters {
 			}
 		}
 
+		/**
+		 * 根据事务类别显示图标
+		 */
 		@BindingAdapter("android:parseTaskTypeIcon")
 		@JvmStatic
 		fun parseTaskTypeIcon(imageView: ImageView,taskType: TaskType){
@@ -127,18 +140,13 @@ class BindingAdapters {
 			}
 		}
 
+		/**
+		 * 将选定数据发送至修改页面
+		 */
 		@BindingAdapter("android:sendDataToUpdateFragment")
 		@JvmStatic
 		fun sendDataToUpdateFragment(view: ConstraintLayout,currentItem: TaskData){
 			view.setOnClickListener {
-//				it.animate()
-//					.translationZ(5.0F)
-//					.setDuration(300)
-//					.setInterpolator(AccelerateInterpolator())
-//					.withEndAction {
-//					}
-//					.start()
-
 
 				it.findNavController().navigate(
 						NoteListFragmentDirections.actionNoteListFragmentToUpdateFragment(

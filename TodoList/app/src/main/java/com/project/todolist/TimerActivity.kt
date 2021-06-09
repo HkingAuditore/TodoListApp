@@ -25,9 +25,9 @@ import com.project.todolist.service.AlarmService
 
 class TimerActivity : AppCompatActivity() {
 	lateinit var binding: ActivityTimerBinding
-	lateinit var timerProgressView : CircularProgressView
+	lateinit var timerProgressView: CircularProgressView
 
-	private var alarmService:AlarmService? = null
+	private var alarmService: AlarmService? = null
 
 
 	var view: View? = null
@@ -46,67 +46,58 @@ class TimerActivity : AppCompatActivity() {
 		binding.bottomBarView.menu.getItem(1).isEnabled = false
 		binding.bottomBarView.menu.getItem(2).isChecked = true
 		binding.bottomBarView.setOnNavigationItemSelectedListener {
-			when(it.itemId){
-				R.id.item_task ->{
+			when (it.itemId) {
+				R.id.item_task -> {
 					val intent = Intent(this, MainActivity::class.java)
 					finish()
 				}
-				R.id.item_clock ->{
+				R.id.item_clock -> {
 
 				}
 			}
 			true
 		}
-		if(Timer.timer != null && !Timer.isFinished){
+		if (Timer.timer != null && !Timer.isFinished) {
 			Timer.circularProgressView = binding.progressView
 			binding.animationCancelView.let {
 				it.progress = 1f
-				it.addAnimatorListener(object : Animator.AnimatorListener{
-					override fun onAnimationStart(animation: Animator?) {
+				it.isClickable = true
+				it.setOnClickListener { btn ->
+					it.isClickable = false
+					it.speed = -1f
+					it.frame = 40
+					it.playAnimation()
+					it.addAnimatorListener(object : Animator.AnimatorListener {
+						override fun onAnimationStart(animation: Animator?) {
 
-					}
-
-					override fun onAnimationEnd(animation: Animator?) {
-						it.setOnClickListener { btn ->
-							it.speed = -1f
-							it.frame = 40
-							it.playAnimation()
-							it.addAnimatorListener(object : Animator.AnimatorListener{
-								override fun onAnimationStart(animation: Animator?) {
-
-								}
-
-								override fun onAnimationEnd(animation: Animator?) {
-									cancel()
-									it.setOnClickListener{
-
-									}
-									it.removeAllAnimatorListeners()
-
-								}
-
-								override fun onAnimationCancel(animation: Animator?) {
-
-								}
-
-								override fun onAnimationRepeat(animation: Animator?) {
-
-								}
-
-							})
 						}
-					}
 
-					override fun onAnimationCancel(animation: Animator?) {
+						override fun onAnimationEnd(animation: Animator?) {
+							Log.d("ANIMATION_BTN","00")
+							cancel()
+							Log.d("ANIMATION_BTN","01")
 
-					}
+							it.setOnClickListener {
 
-					override fun onAnimationRepeat(animation: Animator?) {
+							}
+							Log.d("ANIMATION_BTN","02")
 
-					}
 
-				})
+						}
+
+						override fun onAnimationCancel(animation: Animator?) {
+
+						}
+
+						override fun onAnimationRepeat(animation: Animator?) {
+
+						}
+
+					})
+				}
+
 			}
+
 			Timer.cancelBtn = binding.animationCancelView
 		}
 
@@ -123,55 +114,57 @@ class TimerActivity : AppCompatActivity() {
 //		setContentView(R.layout.activity_timer)
 	}
 
-	fun setTimer(h:Int,m:Int,s:Int){
-		setTimer((3600 * h +60 * m + s).toLong())
+	fun setTimer(h: Int, m: Int, s: Int) {
+		setTimer((3600 * h + 60 * m + s).toLong())
 	}
 
-	private fun setTimer(s: Long){
-		Timer.countDownTime = (s*1000).toLong()
+	private fun setTimer(s: Long) {
+		Timer.countDownTime = (s * 1000).toLong()
 		Timer.circularProgressView = binding.progressView
-		Timer.cancelBtn= binding.animationCancelView
+		Timer.cancelBtn = binding.animationCancelView
 		setAlarm(s)
 	}
 
 
-
-
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
-		if(resultCode != Activity.RESULT_OK)
-			return
-		when(requestCode){
+		if (resultCode != Activity.RESULT_OK) return
+		when (requestCode) {
 			0 -> {
-				Log.d("ALARM","GET TIME: ${data?.getLongExtra("time",0)}")
-				data?.getLongExtra("time",0)?.let {
+				Log.d("ALARM", "GET TIME: ${data?.getLongExtra("time", 0)}")
+				data?.getLongExtra("time", 0)?.let {
 					setTimer(it)
 				}
-				binding.animationCancelView.let{
+				binding.animationCancelView.let {
 					it.postDelayed(Runnable {
 						it.speed = 1f
 						it.playAnimation()
-						it.addAnimatorListener(object : Animator.AnimatorListener{
+						it.addAnimatorListener(object : Animator.AnimatorListener {
 							override fun onAnimationStart(animation: Animator?) {
 
 							}
 
 							override fun onAnimationEnd(animation: Animator?) {
+								it.isClickable = true
 								it.setOnClickListener { btn ->
+									it.isClickable = false
 									it.speed = -1f
 									it.frame = 40
 									it.playAnimation()
-									it.addAnimatorListener(object : Animator.AnimatorListener{
+									it.addAnimatorListener(object : Animator.AnimatorListener {
 										override fun onAnimationStart(animation: Animator?) {
 
 										}
 
 										override fun onAnimationEnd(animation: Animator?) {
 											cancel()
-											it.setOnClickListener{
+											Log.d("ANIMATION_BTN","0")
+											it.setOnClickListener {
 
 											}
+											Log.d("ANIMATION_BTN","1")
 											it.removeAllAnimatorListeners()
+											Log.d("ANIMATION_BTN","2")
 
 										}
 
@@ -184,7 +177,7 @@ class TimerActivity : AppCompatActivity() {
 										}
 
 									})
-								 }
+								}
 							}
 
 							override fun onAnimationCancel(animation: Animator?) {
@@ -196,7 +189,7 @@ class TimerActivity : AppCompatActivity() {
 							}
 
 						})
-					},500)
+					}, 500)
 
 				}
 
@@ -205,22 +198,24 @@ class TimerActivity : AppCompatActivity() {
 	}
 
 	/************************动画**********************/
-	fun animateNavigate(){
+	fun animateNavigate() {
 		//圆圈过渡动画
-		val animation = AnimationUtils.loadAnimation(this@TimerActivity, R.anim.circle_explosion_anim).apply {
-			duration = 500
-			interpolator = AccelerateDecelerateInterpolator()
+		val animation =
+			AnimationUtils.loadAnimation(this@TimerActivity, R.anim.circle_explosion_anim).apply {
+				duration = 500
+				interpolator = AccelerateDecelerateInterpolator()
 
-		}
+			}
 		binding.floatingActionButton.isVisible = false
 		binding.animationCircle.isVisible = true
-		binding.animationCircle.startAnimation(animation){
-			binding.root.setBackgroundColor(ContextCompat.getColor(this@TimerActivity, R.color.colorPrimary))
+		binding.animationCircle.startAnimation(animation) {
+			binding.root.setBackgroundColor(
+					ContextCompat.getColor(this@TimerActivity, R.color.colorPrimary))
 			binding.constraintLayout.isVisible = false
 			binding.bottomBar.isVisible = false
 			val intent = Intent(this, TimePickerActivity::class.java)
 			startActivityForResult(intent, 0)
-			overridePendingTransition(R.anim.fragment_open_enter,R.anim.fragment_open_exit)
+			overridePendingTransition(R.anim.fragment_open_enter, R.anim.fragment_open_exit)
 		}
 
 	}
@@ -236,16 +231,17 @@ class TimerActivity : AppCompatActivity() {
 	}
 
 
-	private fun setAlarm(s : Long){
-		alarmService?.setExactAlarm(s * 1000 )
+	private fun setAlarm(s: Long) {
+		alarmService?.setExactAlarm(s * 1000)
 	}
 
-	private fun cancelAlarm(){
+	private fun cancelAlarm() {
 		alarmService?.cancel()
 	}
 
-	private fun cancel(){
+	private fun cancel() {
 		Timer.cancel()
+		Log.d("ANIMATION_BTN","001")
 		cancelAlarm()
 	}
 

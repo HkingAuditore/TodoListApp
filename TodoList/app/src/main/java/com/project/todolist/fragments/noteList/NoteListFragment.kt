@@ -56,7 +56,6 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 		mTaskViewModel.getAllData.observe(viewLifecycleOwner, Observer {data ->
 			mSharedViewModel.checkIfDatabaseEmpty(data)
 			adapter.setData(data)
-
 		})
 
 
@@ -257,8 +256,8 @@ class NoteListFragment : Fragment(),SearchView.OnQueryTextListener {
 		binding.circle.isVisible = true
 		binding.circle.startAnimation(animation){
 
-			binding?.root?.setBackgroundColor(ContextCompat.getColor(this.requireContext(),R.color.colorPrimary))
-			binding?.circle?.isVisible = false
+			binding.root.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorPrimary))
+			binding.circle.isVisible = false
 			findNavController().navigate(R.id.action_noteListFragment_to_addNoteFragment)
 		}
 

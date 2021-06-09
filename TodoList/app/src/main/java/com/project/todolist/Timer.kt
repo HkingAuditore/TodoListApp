@@ -92,7 +92,7 @@ class Timer {
 			curTime = 0
 			(timer as CountDownTimer).cancel()
 			timer = null
-			circularProgressView?.progress
+
 			showTime(0L)
 		}
 

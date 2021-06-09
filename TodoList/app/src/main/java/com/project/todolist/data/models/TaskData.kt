@@ -11,9 +11,24 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class TaskData(
 	@PrimaryKey(autoGenerate = true)
+	/**
+	 * 序列号
+	 */
 	var id: Int,
+	/**
+	 * 标题
+	 */
 	var title: String,
+	/**
+	 * 重要性
+	 */
 	var priority: Priority,
+	/**
+	 * 事务类别
+	 */
 	var taskType: TaskType,
+	/**
+	 * 描述
+	 */
 	var description: String
 ): Parcelable
